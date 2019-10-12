@@ -1,24 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Link, Switch } from 'react-router-dom'
+// import logo from './logo.svg';
+// import './App.css';
+import UserPage from './UserPage'
+import Header from './Header'
+import IdeaList from './IdeaList';
+import CreateIdea from './CreateIdea'
+import Idea from './Idea'
 
-function App() {
+function App({ideas}) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Switch>
+        <Route 
+          path='/' 
+          exact
+          render={(props) => <UserPage {...props} ideas={ideas} /> }
+        />
+        <Route 
+          path='/ideas' 
+          render={(props) => <IdeaList {...props} ideas={ideas} /> }
+        />
+        <Route 
+          path='/idea/:id' 
+          render={(props) => <Idea {...props} ideas={ideas} /> }
+        />
+        <Route 
+          path='/create-idea' 
+          component={CreateIdea}
+        />
+        
+
+        <Route />
+      </Switch>
     </div>
   );
 }
